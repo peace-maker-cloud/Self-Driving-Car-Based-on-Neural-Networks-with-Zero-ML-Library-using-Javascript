@@ -15,7 +15,7 @@ const networkCtx = networkCanvas.getContext("2d");
 // Create a road using road.js
 const road = new Road(carCanvas.width / 2, carCanvas.width * 0.95);
 // Create a model for car using car.js
-const N = 1;
+const N = 100;
 const cars = dupCars(N);
 // we are going to create traffic to make the car model look like realtime..
 const traffic = [
