@@ -1,0 +1,55 @@
+Self driving Car using Javascript, Neural Networks and Zero ML Library.
+
+Timer: 1:42:25
+
+
+
+
+
+1) About car physics..
+
+I have done car Model using 2d context designed to control using arrow keys. 
+
+2) About road generations
+
+we used the linear interpolation method to create the road lanes
+LINEAR INTERPOLATION is a form of interpolation, which involves the generation of new values based on an existing set of values
+Explanation:
+    Linear interpolation is achieved by geometrically rendering a straight line between two adjacent points on a graph or plane. All points on the line other than the original two can be considered interpolated values.
+
+3) About Sensors
+
+We have Created the Artificial sensor and detect the border  using Segment Intersection method.
+
+4) About Collisions
+
+Now we have done upto artificial sensor in our car model 
+it's time for collision detection..
+We are going to make traffic to make this scenario realtime..
+small traffic has been created and let's make it to interact with car model Sensors
+Now the car gets damage if it contact with any objects.
+We have successfully created a mini traffic an damage collision using polyIntersection and Segment Intersection Method
+
+5) About Neural Networks 
+
+Artificial Neural Networks...
+    what is Neural Networks?
+        Neural Networks are computing system inspried by the biological neural Networks in our brain.
+        It will work just like how our neurons and axons do.
+    Neural Networks has three layers
+    1 : Input Layer
+            This is where we put our input values
+    2 : Hidden Layer
+            why we say this hidden because it may contains more than one layers to process our input.
+    3 : Output Layer
+            After the process done in hidden layer, we finally get our output from this layer.
+    We are setting biased and weight values between -1 to 1 because if front sensor detects a car, it should turn to avoid collision. but, it doesn't know which direction it needs to go if it has border on right side so it need to take the left. 
+    
+
+6)Learn about Genetic Algorithms
+
+
+
+
+
+

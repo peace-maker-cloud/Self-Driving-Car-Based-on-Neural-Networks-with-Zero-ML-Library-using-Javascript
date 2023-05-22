@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Self Driving Cars - ML with Js</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <canvas id="carCanvas"> </canvas>
+    <div id="verticals">
+      <button onclick="save()">💾</button>
+      <button onclick="discard()">❌</button>
+    </div>
+    <canvas id="networkCanvas"> </canvas>
+    <!-- this script is used to visualize the neural networks -->
+    <script src="Visualizer.js"></script>
+    <!-- this script is for Neural Networks -->
+    <script src="network.js"></script>
+    <!--This script is for extras-->
+    <script src="extras.js"></script>
+    <!--this script is for sensor in the car-->
+    <script src="sensor.js"></script>
+
+    <!--this script is for road generations-->
+    <script src="road.js"></script>
+    <!--this script id for control of the car-->
+    <script src="control.js"></script>
+    <!--this script is for Car Creation-->
+    <script src="car.js"></script>
+    <!--this is for main js file-->
+    <script src="main.js"></script>
+  </body>
+</html>
