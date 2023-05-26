@@ -1,34 +1,57 @@
 Self driving Car using Javascript, Neural Networks and Zero ML Library.
 
-Timer: 1:42:25
+
+Description :
+    In this Project, I create and make the car model to learn how to drive in a traffic. 
+    *   I seperated my projects into five parameters
+        
 
 
+1) About car and it's physics..
 
-
-
-1) About car physics..
-
-I have done car Model using 2d context designed to control using arrow keys. 
+*   I have done car Model using (2d context) designed two types of cars which is differentiated by F.R.I.D.A.Y and human for Neural process.
+*   I created a class to set the width, height and the position of car in the road and setting up the maxspeed with friction which make it as realtime car driving.
+*   In the first version, i created a control class to control the car and see how it works.
+*   It works fine. 
+*   I created a polygon by setting the width and heightof the car using (hypot) and car should move like in realtime so for the angle, we are using (atan2) method.
 
 2) About road generations
 
-we used the linear interpolation method to create the road lanes
+*   I created a road class, setting the parameters for length and road lanes for the road.
+*   But in our project, i created an infinity road.
+*   To set the borders and road lanes for the road,  i used Linear interpolation method.
+
 LINEAR INTERPOLATION is a form of interpolation, which involves the generation of new values based on an existing set of values
-Explanation:
-    Linear interpolation is achieved by geometrically rendering a straight line between two adjacent points on a graph or plane. All points on the line other than the original two can be considered interpolated values.
-
+    Explanation:
+        Linear interpolation is achieved by geometrically rendering a straight line between two adjacent points on a graph or plane. All points on the line other than the original two can be considered interpolated values.
+    I set lerp as Linear Interpolation,
+        a + (b - a)*t
+*   I'm setting my car in the middle of the road, I created laneCenter. 
+*   I seeting up the borders to sense it by the sensors in the car model.
 3) About Sensors
+*   I'm setting sensors to sense the  border and other objects by using setting up the ray sensor.
+*   We have Created the Artificial sensor and detect the border  using Segment Intersection method.
 
-We have Created the Artificial sensor and detect the border  using Segment Intersection method.
+SEGMENT INTERSECTION METHOD:
+    Segment Intersection is nothing but a Line to Line Intersection.
+    *   Two or more lines are getting intersected to get an offset which is the intersection point.
+    Line 1 : (x1,y1)-(x2,y2)
+    Line 2 : (x3,y3)-(x4,y4)
+    Offset : (x,y)
+
+
+*   lerp and SIM are in extras.js to look like a fine presentation.
 
 4) About Collisions
 
-Now we have done upto artificial sensor in our car model 
+Now we have done upto artificial sensor in our car model.
 it's time for collision detection..
 We are going to make traffic to make this scenario realtime..
 small traffic has been created and let's make it to interact with car model Sensors
 Now the car gets damage if it contact with any objects.
 We have successfully created a mini traffic an damage collision using polyIntersection and Segment Intersection Method
+polyIntersection Method : 
+    Same as Segment Intersection 
 
 5) About Neural Networks 
 
@@ -51,5 +74,409 @@ Artificial Neural Networks...
 
 
 
+const traffic = [
+  new Car( //this is for car 1
+    road.getLaneCenter(0),
+    -carCanvas.width + 100,
+    carCanvas.width / 6.67,
+    carCanvas.width / 4,
+    "HUMAN",
+    2
+  ),
+  new Car( //this is for car 2
+    road.getLaneCenter(1),
+    -carCanvas.width - 200,
+    carCanvas.width / 6.67,
+    carCanvas.width / 4,
+    "HUMAN",
+    2
+  ),
+  new Car( //this is for car 3
+    road.getLaneCenter(2),
+    -carCanvas.width - 50,
+    carCanvas.width / 6.67,
+    carCanvas.width / 4,
+    "HUMAN",
+    2
+  ),
+  new Car( //this is for car 4
+    road.getLaneCenter(1),
+    -carCanvas.width - 400,
+    carCanvas.width / 6.67,
+    carCanvas.width / 4,
+    "HUMAN",
+    2
+  ),
+  new Car( //this is for car 5
+    road.getLaneCenter(0),
+    -carCanvas.width - 600,
+    carCanvas.width / 6.67,
+    carCanvas.width / 4,
+    "HUMAN",
+    2
+  ),
+  new Car( //this is for car 6
+    road.getLaneCenter(2),
+    -carCanvas.width - 640,
+    carCanvas.width / 6.67,
+    carCanvas.width / 4,
+    "HUMAN",
+    2
+  ),
+  new Car( //this is for car 7
+    road.getLaneCenter(2),
+    -carCanvas.width - 700,
+    carCanvas.width / 6.67,
+    carCanvas.width / 4,
+    "HUMAN",
+    2
+  ),
+  new Car( //this is for car 8
+    road.getLaneCenter(0),
+    -carCanvas.width - 800,
+    carCanvas.width / 6.67,
+    carCanvas.width / 4,
+    "HUMAN",
+    2
+  ),
+  new Car( //this is for car 9
+    road.getLaneCenter(0),
+    -carCanvas.width - 950,
+    carCanvas.width / 6.67,
+    carCanvas.width / 4,
+    "HUMAN",
+    2
+  ),
+  new Car( //this is for car 10
+    road.getLaneCenter(1),
+    -carCanvas.width - 950,
+    carCanvas.width / 6.67,
+    carCanvas.width / 4,
+    "HUMAN",
+    2
+  ),
+  new Car( //this is for car 11
+    road.getLaneCenter(2),
+    -carCanvas.width - 1150,
+    carCanvas.width / 6.67,
+    carCanvas.width / 4,
+    "HUMAN",
+    2
+  ),
+  new Car( //this is for car 12
+    road.getLaneCenter(1),
+    -carCanvas.width - 1300,
+    carCanvas.width / 6.67,
+    carCanvas.width / 4,
+    "HUMAN",
+    2
+  ),
+  new Car( //this is for car 13
+    road.getLaneCenter(1),
+    -carCanvas.width - 1500,
+    carCanvas.width / 6.67,
+    carCanvas.width / 4,
+    "HUMAN",
+    2
+  ),
+  new Car( //this is for car 14
+    road.getLaneCenter(0),
+    -carCanvas.width - 1750,
+    carCanvas.width / 6.67,
+    carCanvas.width / 4,
+    "HUMAN",
+    2
+  ),
+  new Car( //this is for car 15
+    road.getLaneCenter(1),
+    -carCanvas.width - 1950,
+    carCanvas.width / 6.67,
+    carCanvas.width / 4,
+    "HUMAN",
+    2
+  ),
+  new Car( //this is for car 16
+    road.getLaneCenter(0),
+    -carCanvas.width - 2100,
+    carCanvas.width / 6.67,
+    carCanvas.width / 4,
+    "HUMAN",
+    2
+  ),
+  new Car( //this is for car 17
+    road.getLaneCenter(2),
+    -carCanvas.width - 2300,
+    carCanvas.width / 6.67,
+    carCanvas.width / 4,
+    "HUMAN",
+    2
+  ),
+  new Car( //this is for car 18
+    road.getLaneCenter(1),
+    -carCanvas.width - 2450,
+    carCanvas.width / 6.67,
+    carCanvas.width / 4,
+    "HUMAN",
+    2
+  ),
+  new Car( //this is for car 19
+    road.getLaneCenter(0),
+    -carCanvas.width - 2700,
+    carCanvas.width / 6.67,
+    carCanvas.width / 4,
+    "HUMAN",
+    2
+  ),
+  new Car( //this is for car 20
+    road.getLaneCenter(1),
+    -carCanvas.width - 2950,
+    carCanvas.width / 6.67,
+    carCanvas.width / 4,
+    "HUMAN",
+    2
+  ),
+  new Car( //this is for car 21
+    road.getLaneCenter(2),
+    -carCanvas.width - 3100,
+    carCanvas.width / 6.67,
+    carCanvas.width / 4,
+    "HUMAN",
+    2
+  ),
+  new Car( //this is for car 22
+    road.getLaneCenter(1),
+    -carCanvas.width - 3450,
+    carCanvas.width / 6.67,
+    carCanvas.width / 4,
+    "HUMAN",
+    2
+  ),
+  new Car( //this is for car 23
+    road.getLaneCenter(2),
+    -carCanvas.width - 3450,
+    carCanvas.width / 6.67,
+    carCanvas.width / 4,
+    "HUMAN",
+    2
+  ),
+  new Car( //this is for car 24
+    road.getLaneCenter(1),
+    -carCanvas.width - 3650,
+    carCanvas.width / 6.67,
+    carCanvas.width / 4,
+    "HUMAN",
+    2
+  ),
+  new Car( //this is for car 25
+    road.getLaneCenter(0),
+    -carCanvas.width - 3800,
+    carCanvas.width / 6.67,
+    carCanvas.width / 4,
+    "HUMAN",
+    2
+  ),
+  new Car( //this is for car 26
+    road.getLaneCenter(2),
+    -carCanvas.width - 4000,
+    carCanvas.width / 6.67,
+    carCanvas.width / 4,
+    "HUMAN",
+    2
+  ),
+  new Car( //this is for car 27
+    road.getLaneCenter(1),
+    -carCanvas.width - 4150,
+    carCanvas.width / 6.67,
+    carCanvas.width / 4,
+    "HUMAN",
+    2
+  ),
+  new Car( //this is for car 28
+    road.getLaneCenter(0),
+    -carCanvas.width - 4300,
+    carCanvas.width / 6.67,
+    carCanvas.width / 4,
+    "HUMAN",
+    2
+  ),
+  new Car( //this is for car 29
+    road.getLaneCenter(1),
+    -carCanvas.width - 4450,
+    carCanvas.width / 6.67,
+    carCanvas.width / 4,
+    "HUMAN",
+    2
+  ),
+  new Car( //this is for car 30
+    road.getLaneCenter(2),
+    -carCanvas.width - 4450,
+    carCanvas.width / 6.67,
+    carCanvas.width / 4,
+    "HUMAN",
+    2
+  ),
+
+  // // show on presentation
+  // new Car( //this is for car 31
+  //   road.getLaneCenter(1),
+  //   -carCanvas.width - 4650,
+  //   carCanvas.width / 6.67,
+  //   carCanvas.width / 4,
+  //   "HUMAN",
+  //   2
+  // ),
+  // new Car( //this is for car 32
+  //   road.getLaneCenter(0),
+  //   -carCanvas.width - 4800,
+  //   carCanvas.width / 6.67,
+  //   carCanvas.width / 4,
+  //   "HUMAN",
+  //   2
+  // ),
+  // new Car( //this is for car 33
+  //   road.getLaneCenter(1),
+  //   -carCanvas.width - 5000,
+  //   carCanvas.width / 6.67,
+  //   carCanvas.width / 4,
+  //   "HUMAN",
+  //   2
+  // ),
+  // new Car( //this is for car 34
+  //   road.getLaneCenter(2),
+  //   -carCanvas.width - 5150,
+  //   carCanvas.width / 6.67,
+  //   carCanvas.width / 4,
+  //   "HUMAN",
+  //   2
+  // ),
+  // new Car( //this is for car 35
+  //   road.getLaneCenter(1),
+  //   -carCanvas.width - 5300,
+  //   carCanvas.width / 6.67,
+  //   carCanvas.width / 4,
+  //   "HUMAN",
+  //   2
+  // ),
+  // new Car( //this is for car 36
+  //   road.getLaneCenter(2),
+  //   -carCanvas.width - 5300,
+  //   carCanvas.width / 6.67,
+  //   carCanvas.width / 4,
+  //   "HUMAN",
+  //   2
+  // ),
+  // new Car( //this is for car 37
+  //   road.getLaneCenter(0),
+  //   -carCanvas.width - 5500,
+  //   carCanvas.width / 6.67,
+  //   carCanvas.width / 4,
+  //   "HUMAN",
+  //   2
+  // ),
+  // new Car( //this is for car 38
+  //   road.getLaneCenter(2),
+  //   -carCanvas.width - 5750,
+  //   carCanvas.width / 6.67,
+  //   carCanvas.width / 4,
+  //   "HUMAN",
+  //   2
+  // ),
+  // new Car( //this is for car 39
+  //   road.getLaneCenter(2),
+  //   -carCanvas.width - 5900,
+  //   carCanvas.width / 6.67,
+  //   carCanvas.width / 4,
+  //   "HUMAN",
+  //   2
+  // ),
+  // new Car( //this is for car 40
+  //   road.getLaneCenter(1),
+  //   -carCanvas.width - 6150,
+  //   carCanvas.width / 6.67,
+  //   carCanvas.width / 4,
+  //   "HUMAN",
+  //   2
+  // ),
+  // new Car( //this is for car 41
+  //   road.getLaneCenter(0),
+  //   -carCanvas.width - 6300,
+  //   carCanvas.width / 6.67,
+  //   carCanvas.width / 4,
+  //   "HUMAN",
+  //   2
+  // ),
+  // new Car( //this is for car 42
+  //   road.getLaneCenter(1),
+  //   -carCanvas.width - 6500,
+  //   carCanvas.width / 6.67,
+  //   carCanvas.width / 4,
+  //   "HUMAN",
+  //   2
+  // ),
+  // new Car( //this is for car 43
+  //   road.getLaneCenter(1),
+  //   -carCanvas.width - 6650,
+  //   carCanvas.width / 6.67,
+  //   carCanvas.width / 4,
+  //   "HUMAN",
+  //   2
+  // ),
+  // new Car( //this is for car 44
+  //   road.getLaneCenter(2),
+  //   -carCanvas.width - 6650,
+  //   carCanvas.width / 6.67,
+  //   carCanvas.width / 4,
+  //   "HUMAN",
+  //   2
+  // ),
+  // new Car( //this is for car 45
+  //   road.getLaneCenter(0),
+  //   -carCanvas.width - 6800,
+  //   carCanvas.width / 6.67,
+  //   carCanvas.width / 4,
+  //   "HUMAN",
+  //   2
+  // ),
+  // new Car( //this is for car 46
+  //   road.getLaneCenter(1),
+  //   -carCanvas.width - 7000,
+  //   carCanvas.width / 6.67,
+  //   carCanvas.width / 4,
+  //   "HUMAN",
+  //   2
+  // ),
+  // new Car( //this is for car 47
+  //   road.getLaneCenter(1),
+  //   -carCanvas.width - 7150,
+  //   carCanvas.width / 6.67,
+  //   carCanvas.width / 4,
+  //   "HUMAN",
+  //   2
+  // ),
+  // new Car( //this is for car 48
+  //   road.getLaneCenter(2),
+  //   -carCanvas.width - 7300,
+  //   carCanvas.width / 6.67,
+  //   carCanvas.width / 4,
+  //   "HUMAN",
+  //   2
+  // ),
+  // new Car( //this is for car 49
+  //   road.getLaneCenter(0),
+  //   -carCanvas.width - 7450,
+  //   carCanvas.width / 6.67,
+  //   carCanvas.width / 4,
+  //   "HUMAN",
+  //   2
+  // ),
+  // new Car( //this is for car 50
+  //   road.getLaneCenter(2),
+  //   -carCanvas.width - 7600,
+  //   carCanvas.width / 6.67,
+  //   carCanvas.width / 4,
+  //   "HUMAN",
+  //   2
+  // ),
+];
 
 

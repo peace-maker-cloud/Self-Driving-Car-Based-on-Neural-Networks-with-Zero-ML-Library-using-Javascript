@@ -18,97 +18,45 @@ const road = new Road(carCanvas.width / 2, carCanvas.width * 0.95);
 const N = 100;
 const cars = dupCars(N);
 // we are going to create traffic to make the car model look like realtime..
-const traffic = [
-  new Car( //this is for car 1
-    road.getLaneCenter(0),
-    -carCanvas.width + 100,
+// but we are creating them by Looping the lane length
+
+// ---------------------------------------------------------------------
+
+lanes = road.roadLane;
+// console.log(lanes);
+const laneList = [];
+for (let i = 0; i < lanes; i++) {
+  laneList.push(i);
+}
+const randomizer = [];
+const TrafficOrganizer = [];
+const traffic = [];
+let traffiCars = Number(
+  prompt("How Many Traffic Cars you want to test yours..? ")
+);
+for (let i = 0; i < traffiCars; i++) {
+  const randomNumber = Math.floor(Math.random() * laneList.length);
+  randomizer.push(randomNumber);
+}
+trafficWidth = -carCanvas.width;
+const defaultTrafficDistance = [150, 200, 350];
+for (let i = 0; i < traffiCars; i++) {
+  // Now it's time for setting the traffic car in road
+  let rdmTraffic = Math.floor(Math.random() * defaultTrafficDistance.length);
+  trafficWidth += defaultTrafficDistance[rdmTraffic];
+  let laneSelector = randomizer[i];
+  let trafficMaker = new Car(
+    road.getLaneCenter(laneSelector),
+    -carCanvas.width - trafficWidth,
     carCanvas.width / 6.67,
     carCanvas.width / 4,
     "HUMAN",
     2
-  ),
-  new Car( //this is for car 2
-    road.getLaneCenter(1),
-    -carCanvas.width - 200,
-    carCanvas.width / 6.67,
-    carCanvas.width / 4,
-    "HUMAN",
-    2
-  ),
-  new Car( //this is for car 3
-    road.getLaneCenter(2),
-    -carCanvas.width - 50,
-    carCanvas.width / 6.67,
-    carCanvas.width / 4,
-    "HUMAN",
-    2
-  ),
-  new Car( //this is for car 4
-    road.getLaneCenter(1),
-    -carCanvas.width - 400,
-    carCanvas.width / 6.67,
-    carCanvas.width / 4,
-    "HUMAN",
-    2
-  ),
-  new Car( //this is for car 5
-    road.getLaneCenter(0),
-    -carCanvas.width - 600,
-    carCanvas.width / 6.67,
-    carCanvas.width / 4,
-    "HUMAN",
-    2
-  ),
-  new Car( //this is for car 6
-    road.getLaneCenter(2),
-    -carCanvas.width - 640,
-    carCanvas.width / 6.67,
-    carCanvas.width / 4,
-    "HUMAN",
-    2
-  ),
-  new Car( //this is for car 7
-    road.getLaneCenter(3),
-    -carCanvas.width - 700,
-    carCanvas.width / 6.67,
-    carCanvas.width / 4,
-    "HUMAN",
-    2
-  ),
-  new Car( //this is for car 8
-    road.getLaneCenter(0),
-    -carCanvas.width - 800,
-    carCanvas.width / 6.67,
-    carCanvas.width / 4,
-    "HUMAN",
-    2
-  ),
-  new Car( //this is for car 9
-    road.getLaneCenter(0),
-    -carCanvas.width - 950,
-    carCanvas.width / 6.67,
-    carCanvas.width / 4,
-    "HUMAN",
-    2
-  ),
-  new Car( //this is for car 10
-    road.getLaneCenter(1),
-    -carCanvas.width - 950,
-    carCanvas.width / 6.67,
-    carCanvas.width / 4,
-    "HUMAN",
-    2
-  ),
-  new Car( //this is for car 11
-    road.getLaneCenter(2),
-    -carCanvas.width - 1150,
-    carCanvas.width / 6.67,
-    carCanvas.width / 4,
-    "HUMAN",
-    2
-  ),
-  
-];
+  );
+  traffic.push(trafficMaker);
+}
+// console.log(traffic);
+// ---------------------------------------------------------------------
 let bestCar = cars[0];
 if (localStorage.getItem("bestBrain")) {
   for (let i = 0; i < cars.length; i++) {
